@@ -1,0 +1,6 @@
+product_id,product_name,feature_1,feature_2,feature_3
+101,Wireless Mouse,1,0,0
+102,Gaming Mouse,1,1,0
+103,Mechanical Keyboard,0,1,1
+104,Gaming Keyboard,1,1,1
+105,Laptop Stand,0,0,1
