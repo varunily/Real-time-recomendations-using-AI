@@ -1,0 +1,16 @@
+from flask import Flask, request, jsonify
+from app.recommender import Recommender
+
+app = Flask(__name__)
+recommender = Recommender()
+
+@app.route('/recommend', methods=['GET'])
+def recommend():
+    product_id = request.args.get('product_id', type=int)
+    if product_id is None:
+        return jsonify({'error': 'Missing product_id'}), 400
+    recommendations = recommender.recommend(product_id)
+    return jsonify({'recommendations': recommendations})
+
+if __name__ == '__main__':
+    app.run(debug=True)

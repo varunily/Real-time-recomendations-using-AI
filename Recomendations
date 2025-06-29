@@ -1,0 +1,14 @@
+import pandas as pd
+import pickle
+from sklearn.neighbors import NearestNeighbors
+
+class Recommender:
+    def __init__(self, model_path='app/model.pkl', product_data='data/products.csv'):
+        self.model = pickle.load(open(model_path, 'rb'))
+        self.products = pd.read_csv(product_data)
+
+    def recommend(self, product_id, n=5):
+        product_index = self.products[self.products['product_id'] == product_id].index[0]
+        distances, indices = self.model.kneighbors([self.products.iloc[product_index, 1:]], n_neighbors=n+1)
+        recs = self.products.iloc[indices[0][1:]]
+        return recs[['product_id', 'product_name']].to_dict(orient='records')
